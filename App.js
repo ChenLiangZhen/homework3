@@ -6,10 +6,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from "./src/screens/Home";
 import {SafeAreaProvider, SafeAreaView} from "react-native-safe-area-context";
 import BookDetail from "./src/screens/BookDetail";
+import {useState} from "react";
 
-const Tab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator()
+const Stack = createNativeStackNavigator()
 
 export default function App() {
+
     return (
         // <SafeAreaProvider>
             <NavigationContainer>
@@ -21,10 +24,20 @@ export default function App() {
 }
 
 export const Content = () => {
-    return (
-        <Tab.Navigator>
-            <Tab.Screen name="home" component={Home} options={{headerShown: false}}/>
-            <Tab.Screen name="detail" component={BookDetail} options={{headerShown: false}}/>
-        </Tab.Navigator>
+
+   const [tab, setTab] = useState(true)
+
+   return (
+       <>
+          { tab ?
+             <Tab.Navigator>
+                <Tab.Screen name="home" component={Home} options={{headerShown: false}}/>
+             </Tab.Navigator> :
+
+             <Stack.Navigator>
+                <Tab.Screen name="detail" component={BookDetail} options={{headerShown: false}}/>
+             </Stack.Navigator>
+          }
+       </>
     )
 }
