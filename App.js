@@ -14,11 +14,11 @@ const Stack = createNativeStackNavigator()
 export default function App() {
 
     return (
-        // <SafeAreaProvider>
+        <SafeAreaProvider>
             <NavigationContainer>
                 <Content/>
             </NavigationContainer>
-        // </SafeAreaProvider>
+        </SafeAreaProvider>
 
     );
 }
