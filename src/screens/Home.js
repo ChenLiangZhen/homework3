@@ -4,6 +4,7 @@ import {VarText} from "../components/TextLayout";
 import {BaseContainer, BaseTabContainer, HStack, VStack} from "../components/BaseLayout";
 import ScrollViewBase from "react-native-web/dist/exports/ScrollView/ScrollViewBase";
 import {RightArrowIcon} from "../components/IconManager";
+import {BookItem, SearchBar} from "../components/MainComponents";
 
 const DATA = [
     {
@@ -11,7 +12,7 @@ const DATA = [
         image: "https://horizones-space.sgp1.cdn.digitaloceanspaces.com/NTUE/hws/wk3/images/%E6%88%AA%E5%9C%96%202022-03-06%20%E4%B8%8A%E5%8D%881.47.36.png",
         title: 'The Last Thing He Told Me',
         author: "John Alexander",
-        rating: "5",
+        rating: "2",
         isLast: false,
 
     },
@@ -20,7 +21,7 @@ const DATA = [
         image: "https://horizones-space.sgp1.cdn.digitaloceanspaces.com/NTUE/hws/wk3/images/%E6%88%AA%E5%9C%96%202022-03-06%20%E4%B8%8A%E5%8D%881.48.56.png",
         title: 'Cloud Cuckoo Land',
         author: "Peter Andrew",
-        rating: "5",
+        rating: "3",
         isLast: false,
 
     },
@@ -43,39 +44,14 @@ const DATA = [
     },
 ];
 
-const Item = ({ title, image, author, rating, isLast }) => (
-    <View style={{
-        height: 328,
-        width: 144,
-        // padding: 12,
-        marginLeft: 22,
-        marginRight: isLast? 22: 0,
-        // borderWidth: 1,
-        // borderColor: "#ddd",
-        // shadowOpacity: .5,
-        // shadowRadius: 4,
-        // shadowOffset: {width:0, height: 2},
-    }}>
-        <HStack shadowOpacity={.7}  shadowRadius={6} shadowColor= "gray" shadowOffset={{ height: 1}}>
-            <Image style={{ width: 142, height: 216, borderRadius: 10, }} source={{ uri: image }}/>
-        </HStack>
-
-        <VStack style={{backgroundColor: "white", }}>
-            <VarText type="sm" fontWeight="bold" marginTop={8}>{title}</VarText>
-            <VarText type="mc" color="gray" marginTop={4}>{author}</VarText>
-            <VarText>{rating}</VarText>
-        </VStack>
-
-    </View>
-);
-
 const App = () => {
     const renderItem = ({ item }) => (
-        <Item title={item.title} image={item.image} author={item.author} rating={item.rating} isLast={item.isLast} />
+        <BookItem title={item.title} image={item.image} author={item.author} rating={item.rating} isLast={item.isLast} />
     );
 
     return (
         <BaseTabContainer>
+            <SearchBar/>
             <ScrollView>
                 <HStack paddingBottom={16} paddingTop={4} paddingHorizontal={16} justifyContent="space-between" alignItems="center">
                     <VarText type="xl">Featured</VarText>
