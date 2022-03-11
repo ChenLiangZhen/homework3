@@ -1,8 +1,8 @@
 import {RatingStar} from "./IconManager";
 
-export function RatingStarBar({rating}) {
+export function RatingStarBar({rating, ...props}) {
 	return (
-		<HStack width="auto" marginTop={8}>
+		<HStack width="auto" marginTop={8} {...props}>
 			<RatingStar isColored={rating >= 1}/>
 			<RatingStar isColored={rating >= 2}/>
 			<RatingStar isColored={rating >= 3}/>

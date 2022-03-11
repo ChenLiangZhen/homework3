@@ -1,4 +1,4 @@
-import {Feather, FontAwesome, MaterialIcons, Octicons} from "@expo/vector-icons";
+import {AntDesign, Feather, FontAwesome, MaterialIcons, Octicons} from "@expo/vector-icons";
 import {Pressable} from "react-native";
 
 export function RightArrowIcon({onPress}){
@@ -29,7 +29,7 @@ export function LeftArrowIcon({onPress}){
 	)
 }
 
-export function BookmarkIconOutline({onPress}){
+export function BookmarkIconOutline({onPress, size}){
 	return(
 		<Pressable style={{
 			height: 32,
@@ -37,13 +37,13 @@ export function BookmarkIconOutline({onPress}){
 			justifyContent: "center",
 			alignItems: "center",
 		}} onPress={onPress}>
-			<FontAwesome name="bookmark-o" size={22} color="black"/>
+			<FontAwesome name="bookmark-o" size={size} color="black"/>
 
 		</Pressable>
 	)
 }
 
-export function BookmarkIconFill({onPress}){
+export function BookmarkIconFill({onPress, size}){
 	return(
 		<Pressable style={{
 			height: 32,
@@ -51,7 +51,7 @@ export function BookmarkIconFill({onPress}){
 			justifyContent: "center",
 			alignItems: "center",
 		}} onPress={onPress}>
-			<FontAwesome name="bookmark" size={22} color="black"/>
+			<FontAwesome name="bookmark" size={size} color="black"/>
 
 		</Pressable>
 	)
@@ -104,6 +104,57 @@ export function SearchIcon(){
 
 		}}>
 			<Feather name="search" size={24} color="black"/>
+		</Pressable>
+	)
+}
+
+export function HomeIcon(){
+	return(
+		<Pressable style={{
+			height: 32,
+			width: 32,
+			justifyContent: 'center',
+			alignItems: "center",
+			shadowColor: "lightgray",
+			shadowOpacity: .8,
+			shadowOffset: { height: 1}
+
+		}}>
+			<AntDesign name="home" size={24} color="black"/>
+		</Pressable>
+	)
+}
+
+export function WishlistIcon(){
+	return(
+		<Pressable style={{
+			height: 32,
+			width: 32,
+			justifyContent: 'center',
+			alignItems: "center",
+			shadowColor: "lightgray",
+			shadowOpacity: .8,
+			shadowOffset: { height: 1}
+
+		}}>
+			<AntDesign name="book" size={24} color="black"/>
+		</Pressable>
+	)
+}
+
+export function SettingsIcon(){
+	return(
+		<Pressable style={{
+			height: 32,
+			width: 32,
+			justifyContent: 'center',
+			alignItems: "center",
+			shadowColor: "lightgray",
+			shadowOpacity: .8,
+			shadowOffset: { height: 1}
+
+		}}>
+			<AntDesign name="setting" size={24} color="black"/>
 		</Pressable>
 	)
 }

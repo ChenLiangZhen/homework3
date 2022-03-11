@@ -3,7 +3,11 @@ import {HStack, VStack} from "./BaseLayout";
 import {VarText} from "./TextLayout";
 import React, {useState} from "react";
 import {RatingStarBar} from "./GadgetManager";
-import {DrawerIcon, LeftArrowIcon, SearchIcon} from "./IconManager";
+import {BookmarkIconOutline, DrawerIcon, HomeIcon, LeftArrowIcon, SearchIcon} from "./IconManager";
+import { Dimensions } from 'react-native';
+
+const VW = Dimensions.get('window').width;
+const VH = Dimensions.get('window').height;
 
 export function BookItem (props){
 
@@ -30,7 +34,7 @@ export function BookItem (props){
 		>
 
 			<HStack shadowOpacity={.7}  shadowRadius={6} shadowColor= "gray" shadowOffset={{ height: 1}} paddingTop={10}>
-				{isLoading? <ActivityIndicator style={{ position: "relative", left: 71}} size="small" color="gray"/> : <></>}
+				{isLoading? <ActivityIndicator style={{ position: "relative", left: 60}} size="small" color="gray"/> : <></>}
 				<Image style={{ width: 142, height: 216, borderRadius: 10, }} source={{ uri: props.image }}
 						onLoadEnd={()=>{setIsLoading(false)}}
 				/>
@@ -52,11 +56,14 @@ export function BestsellerItem (props){
 
 	return(
 		<Pressable style={{
-			height: 108,
-			width: "auto",
+			height: "auto",
+			width: VW - 44,
+			borderRadius: 16,
 			marginLeft: 22,
-			marginRight: props.isLast? 22 : 0,
+			marginBottom: 12,
 			flexDirection: "column",
+			backgroundColor: "#e9e9e9",
+			paddingVertical: 4
 		}}
 			onPress={()=>{
 				props.navigation.navigate("BookDetail", {
@@ -64,26 +71,34 @@ export function BestsellerItem (props){
 				})
 			}}
 		>
-
 			<HStack>
-
-				<HStack marginRight={12} shadowOpacity={.7}  shadowRadius={6} shadowColor= "gray" shadowOffset={{ height: 1}} paddingTop={10}>
-					{isLoading? <ActivityIndicator style={{ position: "relative", left: 71}} size="small" color="gray"/> : <></>}
+				<HStack marginRight={8} shadowOpacity={.7}  shadowRadius={6} shadowColor= "gray" shadowOffset={{ height: 1}}>
+					{isLoading? <ActivityIndicator style={{ position: "relative", left: 30}} size="small" color="gray"/> : <></>}
 					<Image style={{ width: 60, height: 90, borderRadius: 10, }} source={{ uri: props.image }}
 					       onLoadEnd={()=>{setIsLoading(false)}}/>
 				</HStack>
 
-				<VStack borderRadius={12} paddingHorizontal={8} marginTop={4} width={270} height={100} backgroundColor="#e9e9e9">
+				<VStack borderRadius={12} paddingHorizontal={8} marginTop={4} width={270} backgroundColor="#e9e9e9">
 
-					<HStack marginTop={4} height={32} alignItems="center">
+					<HStack marginTop={4} height={24} alignItems="center">
 						<HStack marginRight={8} borderRadius={4} backgroundColor="black" height={24} width={32} justifyContent="center" alignItems="center">
 							<VarText type="md" fontWeight="bold" color="white">{"#" + props.ranking}</VarText>
 						</HStack>
 						<VarText type="sm" fontWeight="bold">{props.title}</VarText>
 					</HStack>
 
-					<VarText type="mc" color="gray" marginTop={4}>{props.author}</VarText>
-					<RatingStarBar rating={props.rating}/>
+					<HStack justifyContent="space-between" alignItems="center" marginTop={2}>
+
+						<VStack>
+							<VarText type="mc" color="gray" marginTop={4} >{props.author}</VarText>
+							<RatingStarBar rating={props.rating} />
+						</VStack>
+
+						<HStack marginTop={20}>
+							<BookmarkIconOutline size={28}/>
+						</HStack>
+
+					</HStack>
 
 				</VStack>
 
