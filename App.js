@@ -19,7 +19,6 @@ export default function App() {
                 <Content/>
             </NavigationContainer>
         </SafeAreaProvider>
-
     );
 }
 
@@ -29,15 +28,19 @@ export const Content = () => {
 
    return (
        <>
-          { tab ?
-             <Tab.Navigator>
-                <Tab.Screen name="home" component={Home} options={{headerShown: false}}/>
-             </Tab.Navigator> :
-
-             <Stack.Navigator>
-                <Tab.Screen name="detail" component={BookDetail} options={{headerShown: false}}/>
-             </Stack.Navigator>
-          }
+          <Stack.Navigator initialRouteName="Home">
+             <Stack.Screen name="TabNavigator" component={TabNavigator} options={{headerShown: false}}/>
+             <Stack.Screen name="BookDetail" component={BookDetail} options={{headerShown: false}}/>
+          </Stack.Navigator>
        </>
     )
+}
+
+const TabNavigator = () =>{
+   return(
+      <Tab.Navigator>
+         <Tab.Screen name="Home" component={Home} options={{headerShown: false}}/>
+         <Tab.Screen name="Wishlista" component={Wishlist} options={{headerShown: false}}/>
+      </Tab.Navigator>
+   )
 }

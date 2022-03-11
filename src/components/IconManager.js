@@ -1,7 +1,7 @@
 import {Feather, FontAwesome, MaterialIcons, Octicons} from "@expo/vector-icons";
 import {Pressable} from "react-native";
 
-export function RightArrowIcon(){
+export function RightArrowIcon({onPress}){
 	return(
 		<Pressable style={{
 			height: 32,
@@ -15,11 +15,53 @@ export function RightArrowIcon(){
 	)
 }
 
+export function LeftArrowIcon({onPress}){
+	return(
+		<Pressable style={{
+			height: 32,
+			width: 32,
+			justifyContent: "center",
+			alignItems: "center",
+		}} onPress={onPress}>
+			<MaterialIcons name="arrow-back-ios" size={22} color="black"/>
+
+		</Pressable>
+	)
+}
+
+export function BookmarkIconOutline({onPress}){
+	return(
+		<Pressable style={{
+			height: 32,
+			width: 32,
+			justifyContent: "center",
+			alignItems: "center",
+		}} onPress={onPress}>
+			<FontAwesome name="bookmark-o" size={22} color="black"/>
+
+		</Pressable>
+	)
+}
+
+export function BookmarkIconFill({onPress}){
+	return(
+		<Pressable style={{
+			height: 32,
+			width: 32,
+			justifyContent: "center",
+			alignItems: "center",
+		}} onPress={onPress}>
+			<FontAwesome name="bookmark" size={22} color="black"/>
+
+		</Pressable>
+	)
+}
+
 export function RatingStar({isColored}){
 	return(
 		<Pressable style={{
 			height: 16,
-			width: 16,
+			width: 18,
 			justifyContent: 'center',
 			alignItems: "center",
 			shadowColor: "lightgray",
