@@ -1,6 +1,9 @@
 import {AntDesign, Feather, FontAwesome, MaterialCommunityIcons, MaterialIcons, Octicons} from "@expo/vector-icons";
 import {Pressable} from "react-native";
 import {useRoute} from "@react-navigation/native-stack"
+import {useContext} from "react";
+import {StateContext} from "../managers/State/GlobalStateManager";
+import {ACTIONS} from "../managers/State/ActionLibrary";
 
 export function RightArrowIcon({onPress}){
 	return(
@@ -31,6 +34,8 @@ export function LeftArrowIcon({onPress}){
 }
 
 export function BookmarkIconOutline({onPress, size}){
+	const [state, dispatch] = useContext(StateContext)
+
 	return(
 		<Pressable style={{
 			height: 32,
@@ -45,6 +50,8 @@ export function BookmarkIconOutline({onPress, size}){
 }
 
 export function BookmarkIconFill({onPress, size}){
+	const [state, dispatch] = useContext(StateContext)
+
 	return(
 		<Pressable style={{
 			height: 32,
@@ -129,6 +136,8 @@ export function HomeIcon({navigation}){
 }
 
 export function WishlistIcon({navigation}){
+
+
 	return(
 		<Pressable style={{
 			height: 32,
@@ -158,7 +167,9 @@ export function SettingsIcon({navigation, onPress}){
 			shadowOpacity: .8,
 			shadowOffset: { height: 1}
 
-		}}onPress={onPress}>
+		}} onPress={()=>{
+			navigation.navigate("Settings")
+		}}>
 			<AntDesign name="setting" size={24} color="black"/>
 		</Pressable>
 	)

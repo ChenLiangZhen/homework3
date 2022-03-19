@@ -2,40 +2,28 @@ import {BaseStackContainer, HStack, VStack} from "../components/BaseLayout";
 import {ActivityIndicator, Alert, Image, Pressable, ScrollView, View} from "react-native";
 import {VarText} from "../components/TextLayout";
 import {SearchBar, TopNav} from "../components/MainComponents";
-import React, {useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {RatingStarBar} from "../components/GadgetManager";
 import {MainButton} from "../components/ButtonManager";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-async function saveAllBooks(value) {
-   await AsyncStorage.setItem("all-books", JSON.stringify(value));
-}
-
-async function getAllBooks(){
-   let result = await AsyncStorage.getItem("all-books");
-   if (result) {
-      return(result)
-   } else {
-      console.log("Data Failed")
-   }
-}
-
-function updateWishlist(list){
-   let listObj = JSON.parse(list)
-   let wishlisedArray = listObj.DATA_BESTSELLER.filter(function(item){ return item.wishlised === true})
-   console.log("filtered")
-   console.log(JSON.stringify(wishlisedArray))
-   return wishlisedArray
-}
+import {StateContext} from "../managers/State/GlobalStateManager";
+import {asyncSaveAllBooks} from "../managers/AsyncManager";
+import {ACTIONS} from "../managers/State/ActionLibrary";
 
 const BookDetail = ({ route, navigation }) => {
 
    const { props } = route.params;
    const [isLoading, setIsLoading] = useState(true)
+   const [state, dispatch] = useContext(StateContext)
+   const [wishlistState, setWishlistState] = useState(false)
+
+   useEffect(()=>{
+      setWishlistState(props.wishlisted)
+   },[])
 
    return(
-        <BaseStackContainer alignItems="center">
 
+        <BaseStackContainer alignItems="center">
            <HStack>
               <TopNav
                  onPress={()=> navigation.goBack()}
@@ -61,38 +49,34 @@ const BookDetail = ({ route, navigation }) => {
                  <HStack marginTop={36} justifyContent="space-between" >
                     <MainButton color="white" type="sm" text="Buy Now" width={155} backgroundColor="black" marginHorizontal={8}/>
 
-                    { props.wishlised? <MainButton color="white" type="mc" text="remove from wishlist" width={155} backgroundColor="#ccc" marginHorizontal={8}/> :
+                    { wishlistState?
+                       <MainButton color="white" type="mc" text="remove from wishlist" width={155} backgroundColor="#ccc" marginHorizontal={8}
+                           onPress={()=>{
+                              let updatedBookData = state.currentBookData.map(book => {
+                                 if(book.title === props.title){
+                                    setWishlistState(false)
+                                    return {...book, wishlisted: false}
+                                 }
+                                 return book
+                              })
+                              asyncSaveAllBooks(updatedBookData)
+                              dispatch({type: ACTIONS.UPDATE_CURRENT_BOOK_DATA, payload: updatedBookData})
+                              console.log("[BookDetail.js] wishlist updated. BookData: " + JSON.stringify(updatedBookData))
+                           }}
+                       /> :
                        <MainButton color="black" type="sm" text="Add to Wishlist" width={155} backgroundColor="transparent" borderWidth={1} borderColor="black"  marginHorizontal={8}
                            onPress={()=>{
-                              // const newArr = arr1.map(obj => {
-                              //    if (obj.id === 1) {
-                              //       return {...obj, name: 'Alfred'};
-                              //    }
-                              //
-                              //    return obj;
-                              // });
 
-                              getAllBooks()
-                                 .then((res)=>{
-                                    let allBooks = JSON.parse(res)
-                                    // console.log(allBooks.DATA_BESTSELLER)
-                                    let updatedData = allBooks.DATA.map(book => {
-                                       if(book.title === props.title){
-                                          return {...book, wishlisted: true}
-                                       }
-                                       return book
-                                    })
-
-                                    let a = Object.create({
-                                       updatedData
-                                    })
-
-                                    saveAllBooks(a)
-                                       .then((res)=> console.log("Save Updated Books Success.") )
-                                       .catch((rej) => console.log(rej.message))
-                                 .catch((rej)=>{ Alert.alert(rej.message)})
-
-                                 })
+                              let updatedBookData = state.currentBookData.map(book => {
+                                 if(book.title === props.title){
+                                    setWishlistState(true)
+                                    return {...book, wishlisted: true}
+                                 }
+                                 return book
+                              })
+                              asyncSaveAllBooks(updatedBookData)
+                              dispatch({type: ACTIONS.UPDATE_CURRENT_BOOK_DATA, payload: updatedBookData})
+                              console.log("[BookDetail.js] wishlist updated. BookData: " + JSON.stringify(updatedBookData))
                            }}
                        /> }
                  </HStack>

@@ -6,8 +6,10 @@
       "image": "https://horizones-space.sgp1.cdn.digitaloceanspaces.com/NTUE/hws/wk3/images/%E6%88%AA%E5%9C%96%202022-03-06%20%E4%B8%8A%E5%8D%881.47.36.png",
       "title": "The Last Thing He Told Me",
       "author": "John Alexander",
+      "awards": "",
+      "details": "",
       "rating": "2",
-      "wishlised": false,
+      "wishlisted": false,
       "isLast": false
     },
     {
@@ -16,8 +18,10 @@
       "image": "https://horizones-space.sgp1.cdn.digitaloceanspaces.com/NTUE/hws/wk3/images/%E6%88%AA%E5%9C%96%202022-03-06%20%E4%B8%8A%E5%8D%881.48.56.png",
       "title": "Cloud Cuckoo Land",
       "author": "Peter Andrew",
+      "awards": "",
+      "details": "",
       "rating": "3",
-      "wishlised": false,
+      "wishlisted": false,
 
       "isLast": false
     },
@@ -27,8 +31,10 @@
       "image": "https://horizones-space.sgp1.cdn.digitaloceanspaces.com/NTUE/hws/wk3/images/%E6%88%AA%E5%9C%96%202022-03-06%20%E4%B8%8A%E5%8D%881.46.42.png",
       "title": "The Wok",
       "author": "Javelin J.",
+      "awards": "",
+      "details": "",
       "rating": "5",
-      "wishlised": true,
+      "wishlisted": true,
 
       "isLast": false
     },
@@ -38,8 +44,10 @@
       "image": "https://horizones-space.sgp1.cdn.digitaloceanspaces.com/NTUE/hws/wk3/images/%E6%88%AA%E5%9C%96%202022-03-06%20%E4%B8%8A%E5%8D%881.47.07.png",
       "title": "The 1619 Project",
       "author": "Marry William",
+      "awards": "",
+      "details": "",
       "rating": "5",
-      "wishlised": true,
+      "wishlisted": true,
 
       "isLast": true
     }

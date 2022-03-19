@@ -1,7 +1,7 @@
 import {ActivityIndicator, Image, LogBox, Pressable, TextInput, View, YellowBox} from "react-native";
 import {HStack, VStack} from "./BaseLayout";
 import {VarText} from "./TextLayout";
-import React, {useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {RatingStarBar} from "./GadgetManager";
 import {
 	BookmarkIconFill,
@@ -13,6 +13,9 @@ import {
 	UserIcon
 } from "./IconManager";
 import { Dimensions } from 'react-native';
+import {StateContext} from "../managers/State/GlobalStateManager";
+import {ACTIONS} from "../managers/State/ActionLibrary";
+import {asyncSaveAllBooks} from "../managers/AsyncManager";
 
 LogBox.ignoreLogs(["Non-serializable values"])
 
@@ -62,6 +65,13 @@ export function BookItem (props){
 
 export function BestsellerItem (props){
 	const [isLoading, setIsLoading] = useState(true)
+	const [state, dispatch] = useContext(StateContext)
+
+	const [wishlistState, setWishlistState] = useState(false)
+
+	useEffect(()=>{
+		setWishlistState(props.wishlisted)
+	})
 
 	return(
 		<Pressable style={{
@@ -104,7 +114,33 @@ export function BestsellerItem (props){
 						</VStack>
 
 						<HStack marginTop={20}>
-							{props.wishlised? <BookmarkIconFill size={28}/>: <BookmarkIconOutline size={28}/> }
+							{wishlistState?
+								<BookmarkIconFill size={28} onPress={()=>{
+									let updatedBookData = state.currentBookData.map(book => {
+										if(book.title === props.title){
+											setWishlistState(false)
+											return {...book, wishlisted: false}
+										}
+										return book
+									})
+									asyncSaveAllBooks(updatedBookData)
+									dispatch({type: ACTIONS.UPDATE_CURRENT_BOOK_DATA, payload: updatedBookData})
+									console.log("[BookDetail.js] wishlist updated. BookData: " + JSON.stringify(updatedBookData))
+								}
+							}/>:
+								<BookmarkIconOutline size={28} onPress={()=>{
+									let updatedBookData = state.currentBookData.map(book => {
+										if(book.title === props.title){
+											setWishlistState(true)
+											return {...book, wishlisted: true}
+										}
+										return book
+									})
+									asyncSaveAllBooks(updatedBookData)
+									dispatch({type: ACTIONS.UPDATE_CURRENT_BOOK_DATA, payload: updatedBookData})
+									console.log("[BookDetail.js] wishlist updated. BookData: " + JSON.stringify(updatedBookData))
+								}
+								}/> }
 
 						</HStack>
 

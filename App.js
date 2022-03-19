@@ -1,15 +1,16 @@
-import "react-native-gesture-handler"
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {DefaultTheme, NavigationContainer} from "@react-navigation/native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from "./src/screens/Home";
 import {SafeAreaProvider} from "react-native-safe-area-context";
 import BookDetail from "./src/screens/BookDetail";
-import {useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import Wishlist from "./src/screens/Wishlist";
 import Settings from "./src/screens/Settings"
 import {HomeIcon, SettingsIcon, WishlistIcon} from "./src/components/IconManager";
-// import {createDrawerNavigator} from "@react-navigation/drawer";
+import GlobalStateManager, {StateContext} from "./src/managers/State/GlobalStateManager";
+import {asyncGetAllBooks, asyncSaveAllBooks} from "./src/managers/AsyncManager";
+import {ACTIONS} from "./src/managers/State/ActionLibrary";
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
@@ -24,12 +25,14 @@ const theme = {
 
 export default function App() {
 
-    return (
-        <SafeAreaProvider>
-            <NavigationContainer theme={theme}>
+   return (
+       <GlobalStateManager>
+          <SafeAreaProvider>
+             <NavigationContainer theme={theme}>
                 <Content/>
-            </NavigationContainer>
-        </SafeAreaProvider>
+             </NavigationContainer>
+          </SafeAreaProvider>
+       </GlobalStateManager>
     );
 }
 
@@ -75,7 +78,6 @@ const TabNavigator = ({navigation}) =>{
       }}>
          <Tab.Screen name="Wishlist" component={Wishlist} options={{ headerShown: false, tabBarIcon: () => (<WishlistIcon navigation={navigation}/>)}}/>
          <Tab.Screen name="Home" component={Home} options={{ headerShown: false, tabBarIcon: ({ color }) => <HomeIcon color={color} navigation={navigation}/>}}/>
-
          <Tab.Screen name="Settings" component={Settings} options={{ headerShown: false, tabBarIcon: () => (<SettingsIcon navigation={navigation}/>)}}/>
       </Tab.Navigator>
    )
