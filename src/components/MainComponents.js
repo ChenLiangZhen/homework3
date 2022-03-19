@@ -1,10 +1,20 @@
-import {ActivityIndicator, Image, Pressable, TextInput, View} from "react-native";
+import {ActivityIndicator, Image, LogBox, Pressable, TextInput, View, YellowBox} from "react-native";
 import {HStack, VStack} from "./BaseLayout";
 import {VarText} from "./TextLayout";
 import React, {useState} from "react";
 import {RatingStarBar} from "./GadgetManager";
-import {BookmarkIconOutline, DrawerIcon, HomeIcon, LeftArrowIcon, SearchIcon} from "./IconManager";
+import {
+	BookmarkIconFill,
+	BookmarkIconOutline,
+	DrawerIcon,
+	HomeIcon,
+	LeftArrowIcon,
+	SearchIcon,
+	UserIcon
+} from "./IconManager";
 import { Dimensions } from 'react-native';
+
+LogBox.ignoreLogs(["Non-serializable values"])
 
 const VW = Dimensions.get('window').width;
 const VH = Dimensions.get('window').height;
@@ -33,12 +43,11 @@ export function BookItem (props){
 			}}
 		>
 
-			<HStack shadowOpacity={.7}  shadowRadius={6} shadowColor= "gray" shadowOffset={{ height: 1}} paddingTop={10}>
+			<HStack shadowOpacity={.5}  shadowRadius={6} shadowColor= "gray" shadowOffset={{ height: 1}} paddingTop={10}>
 				{isLoading? <ActivityIndicator style={{ position: "relative", left: 60}} size="small" color="gray"/> : <></>}
 				<Image style={{ width: 142, height: 216, borderRadius: 10, }} source={{ uri: props.image }}
 						onLoadEnd={()=>{setIsLoading(false)}}
 				/>
-
 			</HStack>
 
 			<VStack paddingHorizontal={2} marginTop={4}>
@@ -62,7 +71,7 @@ export function BestsellerItem (props){
 			marginLeft: 22,
 			marginBottom: 12,
 			flexDirection: "column",
-			backgroundColor: "#e9e9e9",
+			backgroundColor: "#f6f6f6",
 			paddingVertical: 4
 		}}
 			onPress={()=>{
@@ -72,13 +81,13 @@ export function BestsellerItem (props){
 			}}
 		>
 			<HStack>
-				<HStack marginRight={8} shadowOpacity={.7}  shadowRadius={6} shadowColor= "gray" shadowOffset={{ height: 1}}>
+				<HStack marginRight={8} shadowOpacity={.5}  shadowRadius={6} shadowColor= "gray" shadowOffset={{ height: 1}}>
 					{isLoading? <ActivityIndicator style={{ position: "relative", left: 30}} size="small" color="gray"/> : <></>}
 					<Image style={{ width: 60, height: 90, borderRadius: 10, }} source={{ uri: props.image }}
 					       onLoadEnd={()=>{setIsLoading(false)}}/>
 				</HStack>
 
-				<VStack borderRadius={12} paddingHorizontal={8} marginTop={4} width={270} backgroundColor="#e9e9e9">
+				<VStack borderRadius={12} paddingHorizontal={8} marginTop={4} width={270} backgroundColor="#f6f6f6">
 
 					<HStack marginTop={4} height={24} alignItems="center">
 						<HStack marginRight={8} borderRadius={4} backgroundColor="black" height={24} width={32} justifyContent="center" alignItems="center">
@@ -95,7 +104,8 @@ export function BestsellerItem (props){
 						</VStack>
 
 						<HStack marginTop={20}>
-							<BookmarkIconOutline size={28}/>
+							{props.wishlised? <BookmarkIconFill size={28}/>: <BookmarkIconOutline size={28}/> }
+
 						</HStack>
 
 					</HStack>
@@ -134,18 +144,20 @@ export function SearchItem (props){
 
 
 
-export function SearchBar(){
+export function SearchBar({placeholder}){
 	const [text, setText] = useState("")
 	const [showSearchSuggestion, setShowSearchSuggestion] = useState(false)
 	return(
 		<VStack>
-			<HStack width="100%" height={48} justifyContent="space-between" alignItems="center" paddingHorizontal={12} marginBottom={24}
-			        backgroundColor="#f2f2f2" shadowOpacity={.3} shadowOffset={{height: 8}} shadowRadius={6} shadowColor="lightgray">
-				<DrawerIcon/>
+			<HStack width="100%" height={48} justifyContent="space-between" alignItems="center" paddingHorizontal={12} paddingBottom={4} marginBottom={0}
+			        backgroundColor="#ffffff" shadowOpacity={.2} shadowOffset={{height: 8}} shadowRadius={6} shadowColor="lightgray">
+				<UserIcon/>
 				<TextInput onFocus={()=>{
 					setShowSearchSuggestion("dsvbshjfl")
 				}}
-				           style={{ backgroundColor: "#dedede", height: 32, width: "70%", borderRadius: 16, paddingHorizontal: 12, letterSpacing: 0.5 }} onChangeText={(text)=>setText(prev => text) } value={text}/>
+				           placeholder={placeholder}
+				           selectionColor="gray"
+				           style={{ backgroundColor: "#f2f2f2", height: 32, width: "70%", borderRadius: 16, paddingHorizontal: 12, letterSpacing: 0.5 }} onChangeText={(text)=>setText(prev => text) } value={text}/>
 				<SearchIcon/>
 			</HStack>
 

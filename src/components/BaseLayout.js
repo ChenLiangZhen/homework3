@@ -3,13 +3,15 @@ import {SafeAreaView} from "react-native-safe-area-context";
 
 export function BaseTabContainer({children, ...props}) {
     return (
-            <SafeAreaView edges={['right', 'left', 'top']} style={{
-                flex: 1,
-                width: "100%",
-                ...props
-            }}>
-                {children}
-            </SafeAreaView>
+          <SafeAreaView edges={['right', 'left', 'top']} style={{
+             flex: 1,
+             width: "100%",
+             backgroundColor: "white",
+             ...props
+          }}>
+             {children}
+          </SafeAreaView>
+
     )
 }
 
@@ -18,7 +20,9 @@ export function BaseStackContainer({children, ...props}) {
             <SafeAreaView style={{
                 flex: 1,
                 width: "100%",
-                ...props
+               backgroundColor: "white",
+
+               ...props
             }}>
                 {children}
             </SafeAreaView>

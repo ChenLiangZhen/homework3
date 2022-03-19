@@ -1,40 +1,5 @@
 {
-  "DATA_FEATURED": [
-    {
-      "id": "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-      "image": "https://horizones-space.sgp1.cdn.digitaloceanspaces.com/NTUE/hws/wk3/images/%E6%88%AA%E5%9C%96%202022-03-06%20%E4%B8%8A%E5%8D%881.47.36.png",
-      "title": "The Last Thing He Told Me",
-      "author": "John Alexander",
-      "rating": "2",
-      "isLast": false
-    },
-    {
-      "id": "58694aer-3da1-471f-bd96-145571e29d72",
-      "image": "https://horizones-space.sgp1.cdn.digitaloceanspaces.com/NTUE/hws/wk3/images/%E6%88%AA%E5%9C%96%202022-03-06%20%E4%B8%8A%E5%8D%881.48.56.png",
-      "title": "Cloud Cuckoo Land",
-      "author": "Peter Andrew",
-      "rating": "3",
-      "isLast": false
-    },
-    {
-      "id": "58694a0f-3da1-471f-bd96-145571e29d72",
-      "image": "https://horizones-space.sgp1.cdn.digitaloceanspaces.com/NTUE/hws/wk3/images/%E6%88%AA%E5%9C%96%202022-03-06%20%E4%B8%8A%E5%8D%881.46.42.png",
-      "title": "The Wok",
-      "author": "Javelin J.",
-      "rating": "5",
-      "isLast": false
-    },
-    {
-      "id": "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-      "image": "https://horizones-space.sgp1.cdn.digitaloceanspaces.com/NTUE/hws/wk3/images/%E6%88%AA%E5%9C%96%202022-03-06%20%E4%B8%8A%E5%8D%881.47.07.png",
-      "title": "The 1619 Project",
-      "author": "Marry William",
-      "rating": "5",
-      "isLast": true
-    }
-  ],
-
-  "DATA_BESTSELLER": [
+  "DATA": [
     {
       "ranking": 1,
       "id": "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
@@ -42,6 +7,7 @@
       "title": "The Last Thing He Told Me",
       "author": "John Alexander",
       "rating": "2",
+      "wishlised": false,
       "isLast": false
     },
     {
@@ -51,6 +17,8 @@
       "title": "Cloud Cuckoo Land",
       "author": "Peter Andrew",
       "rating": "3",
+      "wishlised": false,
+
       "isLast": false
     },
     {
@@ -60,6 +28,8 @@
       "title": "The Wok",
       "author": "Javelin J.",
       "rating": "5",
+      "wishlised": true,
+
       "isLast": false
     },
     {
@@ -69,6 +39,8 @@
       "title": "The 1619 Project",
       "author": "Marry William",
       "rating": "5",
+      "wishlised": true,
+
       "isLast": true
     }
   ]

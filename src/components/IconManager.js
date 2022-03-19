@@ -1,5 +1,6 @@
-import {AntDesign, Feather, FontAwesome, MaterialIcons, Octicons} from "@expo/vector-icons";
+import {AntDesign, Feather, FontAwesome, MaterialCommunityIcons, MaterialIcons, Octicons} from "@expo/vector-icons";
 import {Pressable} from "react-native";
+import {useRoute} from "@react-navigation/native-stack"
 
 export function RightArrowIcon({onPress}){
 	return(
@@ -64,9 +65,6 @@ export function RatingStar({isColored}){
 			width: 18,
 			justifyContent: 'center',
 			alignItems: "center",
-			shadowColor: "lightgray",
-			shadowOpacity: .8,
-			shadowOffset: { height: 1}
 
 		}}>
 			<FontAwesome name="star" size={14} color={isColored? "#FFBE15" : "lightgray"}/>
@@ -74,7 +72,7 @@ export function RatingStar({isColored}){
 	)
 }
 
-export function DrawerIcon(){
+export function UserIcon(){
 	return(
 		<Pressable style={{
 			height: 32,
@@ -86,7 +84,7 @@ export function DrawerIcon(){
 			shadowOffset: { height: 1}
 
 		}}>
-			<Feather name="menu" size={24} color="black"/>
+			<AntDesign name="user" size={24} color="black"/>
 		</Pressable>
 	)
 }
@@ -108,7 +106,10 @@ export function SearchIcon(){
 	)
 }
 
-export function HomeIcon(){
+export function HomeIcon({navigation}){
+
+	// let route = useRoute()
+
 	return(
 		<Pressable style={{
 			height: 32,
@@ -119,13 +120,15 @@ export function HomeIcon(){
 			shadowOpacity: .8,
 			shadowOffset: { height: 1}
 
+		}} onPress={()=>{
+			navigation.navigate("Home")
 		}}>
 			<AntDesign name="home" size={24} color="black"/>
 		</Pressable>
 	)
 }
 
-export function WishlistIcon(){
+export function WishlistIcon({navigation}){
 	return(
 		<Pressable style={{
 			height: 32,
@@ -136,13 +139,15 @@ export function WishlistIcon(){
 			shadowOpacity: .8,
 			shadowOffset: { height: 1}
 
+		}}onPress={()=>{
+			navigation.navigate("Wishlist")
 		}}>
 			<AntDesign name="book" size={24} color="black"/>
 		</Pressable>
 	)
 }
 
-export function SettingsIcon(){
+export function SettingsIcon({navigation, onPress}){
 	return(
 		<Pressable style={{
 			height: 32,
@@ -153,8 +158,26 @@ export function SettingsIcon(){
 			shadowOpacity: .8,
 			shadowOffset: { height: 1}
 
-		}}>
+		}}onPress={onPress}>
 			<AntDesign name="setting" size={24} color="black"/>
+		</Pressable>
+	)
+}
+
+export function SortIcon({navigation, onPress}){
+	return(
+		<Pressable style={{
+			height: 32,
+			width: 32,
+			justifyContent: 'center',
+			alignItems: "center",
+			shadowColor: "lightgray",
+			shadowOpacity: .8,
+			shadowOffset: { height: 1}
+
+		}}onPress={onPress
+		}>
+			<MaterialCommunityIcons name="sort-variant" size={28} color="black"/>
 		</Pressable>
 	)
 }

@@ -1,7 +1,7 @@
 import {Pressable} from "react-native";
 import {VarText} from "./TextLayout";
 
-export function MainButton({type, text, onPress, ...props}){
+export function MainButton({type, text, color, onPress, ...props}){
 
 	let pressableStyle = {
 		justifyContent: "center",
@@ -9,11 +9,11 @@ export function MainButton({type, text, onPress, ...props}){
 		backgroundColor: "lightgray",
 		paddingVertical: 4,
 		paddingHorizontal: 10,
-		borderRadius: 4
+		borderRadius: 32
 	}
 
 	let textStyle ={
-		color: "white",
+
 		fontSize: 14,
 	}
 
@@ -54,7 +54,7 @@ export function MainButton({type, text, onPress, ...props}){
 		<Pressable style={[
 			pressableStyle, {...props}]}
 		           onPress={onPress}>
-			<VarText type={type} color="white">
+			<VarText type={type} color={color}>
 				{text}
 			</VarText>
 		</Pressable>

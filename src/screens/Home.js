@@ -1,13 +1,43 @@
-import React from 'react';
-import {SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, ScrollView, Image} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, ScrollView, Image, Alert} from 'react-native';
 import {VarText} from "../components/TextLayout";
 import {BaseContainer, BaseTabContainer, HStack, VStack} from "../components/BaseLayout";
-import ScrollViewBase from "react-native-web/dist/exports/ScrollView/ScrollViewBase";
 import {RightArrowIcon} from "../components/IconManager";
 import {BestsellerItem, BestSellerItem, BookItem, SearchBar} from "../components/MainComponents";
 import * as DATA from "../res/data.json"
+import * as SecureStore from "expo-secure-store";
+import AsyncStorage from "@react-native-async-storage/async-storage"
+
+async function saveAllBooks() {
+	await AsyncStorage.setItem("all-books", JSON.stringify(DATA));
+}
+
+async function getAllBooks() {
+	let result = await AsyncStorage.getItem("all-books");
+	if (result) {
+		return(result)
+	} else {
+		console.log("Data Failed")
+	}
+}
 
 const App = ({navigation}) => {
+
+	const [isInitialized, setInitialized] = useState(false)
+	const [allBooks, setAllBooks] = useState({})
+
+	useEffect(()=>{
+		saveAllBooks()
+			.then(()=>{
+				getAllBooks()
+					.then((res)=> {
+						setAllBooks(JSON.parse(res))
+						setInitialized(true)
+						Alert.alert("initialized")
+					})
+					.catch(()=> console.log("get all-books failed"))
+			}).catch(()=> console.log("save all-books failed"))
+	},[])
 
 	const renderItem = ({item}) => (
 		<BookItem title={item.title} image={item.image} author={item.author} rating={item.rating} isLast={item.isLast}
@@ -15,44 +45,49 @@ const App = ({navigation}) => {
 	);
 
 	const renderItemBestseller = ({item}) => (
-		<BestsellerItem title={item.title} image={item.image} author={item.author} rating={item.rating} isLast={item.isLast} ranking={item.ranking}
-		          navigation={navigation}/>
+		<BestsellerItem title={item.title} image={item.image} author={item.author}
+		                rating={item.rating} isLast={item.isLast} ranking={item.ranking}
+		                wishlised={item.wishlised}
+		                navigation={navigation}/>
 	);
 
 	return (
-		<BaseTabContainer>
-			<SearchBar/>
-			<FlatList
-				showsVerticalScrollIndicator={false}
-				data={DATA.DATA_BESTSELLER}
-				renderItem={renderItemBestseller}
-				keyExtractor={item => item.id}
 
-				ListHeaderComponent={
-					<>
-						<HStack paddingBottom={6} paddingHorizontal={16} justifyContent="space-between" alignItems="center">
-							<VarText type="xl">Featured</VarText>
-							<RightArrowIcon/>
-						</HStack>
+		isInitialized ?
 
-						<HStack>
-							<FlatList
-								showsHorizontalScrollIndicator={false}
-								horizontal={true}
-								data={DATA.DATA_FEATURED}
-								renderItem={renderItem}
-								keyExtractor={item => item.id}
-							/>
-						</HStack>
+				<BaseTabContainer>
+					<SearchBar placeholder="Search books..."/>
+					<FlatList
+						showsVerticalScrollIndicator={false}
+						data={allBooks.DATA}
+						renderItem={renderItemBestseller}
+						keyExtractor={item => item.id}
 
-						<HStack paddingVertical={6} paddingHorizontal={16} justifyContent="space-between" alignItems="center">
-							<VarText type="xl">Best Seller</VarText>
-							<RightArrowIcon/>
-						</HStack>
-					</>
-				}
-			/>
-		</BaseTabContainer>
+						ListHeaderComponent={
+							<>
+								<HStack marginTop={12} paddingBottom={6} paddingHorizontal={16} justifyContent="space-between" alignItems="center">
+									<VarText type="xl">Featured</VarText>
+									<RightArrowIcon/>
+								</HStack>
+
+								<HStack>
+									<FlatList
+										showsHorizontalScrollIndicator={false}
+										horizontal={true}
+										data={allBooks.DATA}
+										renderItem={renderItem}
+										keyExtractor={item => item.id}
+									/>
+								</HStack>
+
+								<HStack paddingBottom={16} paddingHorizontal={16} justifyContent="space-between" alignItems="center">
+									<VarText type="xl">Best Seller</VarText>
+									<RightArrowIcon/>
+								</HStack>
+							</>
+						}
+					/>
+				</BaseTabContainer> : <></>
 	);
 }
 
