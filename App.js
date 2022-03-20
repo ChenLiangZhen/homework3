@@ -73,7 +73,7 @@ const TabNavigator = ({navigation}) =>{
 
             tabBarItemStyle:{
                borderRadius: 16,
-               paddingVertical: 2
+               paddingVertical: 2,
             }
       }}>
          <Tab.Screen name="Wishlist" component={Wishlist} options={{ headerShown: false, tabBarIcon: () => (<WishlistIcon navigation={navigation}/>)}}/>

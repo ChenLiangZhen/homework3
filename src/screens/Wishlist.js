@@ -36,13 +36,19 @@ const Wishlist = ({navigation}) =>{
 
 
 		<BaseTabContainer>
-			<SearchBar placeholder="Search in wishlist..."/>
-			<HStack marginTop={16} paddingBottom={12} paddingHorizontal={16} justifyContent="space-between" alignItems="center">
-				<VarText type="xl">Wishlist</VarText>
+			<SearchBar placeholder="在願望清單中搜尋..."/>
+			<HStack marginTop={16} paddingBottom={18} paddingHorizontal={16} justifyContent="space-between" alignItems="center">
+				<VarText type="xl" letterSpacing={1.25}>願望清單</VarText>
 				<SortIcon onPress={()=>{
 					dispatch({type: ACTIONS.UPDATE_TEST_DATA, payload: 123})
+					console.log(navigation.isFocused())
 				}}/>
 			</HStack>
+
+			{wishlistArray.length < 1?
+				<VarText type="sm" marginHorizontal={16} color="darkgray" fontWeight="bold" lineHeight={24}> 嗚嗚嗚...... 這裏什麼都沒有。{"\n"} 快去逛逛吧！</VarText>
+				: <></>
+			}
 
 			<FlatList
 				ListHeaderComponent={<>
@@ -53,6 +59,7 @@ const Wishlist = ({navigation}) =>{
 				renderItem={renderItemBestseller}
 				keyExtractor={item => item.id}
 			/>
+
 
 		</BaseTabContainer>
 	)

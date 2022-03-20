@@ -9,8 +9,8 @@ export function VarText({children, type, ...props}){
    const lg={ fontSize: 22}
    const md={ fontSize: 18}
    const sm={ fontSize: 16}
-   const mc={ fontSize: 14}
-   const nano={ fontSize: 12}
+   const mc={ fontSize: 15}
+   const nano={ fontSize: 14}
 
    switch(type){
       case "xxl":

@@ -57,7 +57,7 @@ const App = ({navigation}) => {
 
 	return (
 		<BaseTabContainer>
-			<SearchBar placeholder="Search books..."/>
+			<SearchBar placeholder="搜尋書籍..."/>
 			<FlatList
 				showsVerticalScrollIndicator={false}
 				data={state.currentBookData}
@@ -66,10 +66,10 @@ const App = ({navigation}) => {
 
 				ListHeaderComponent={
 					<>
-						<HStack marginTop={12} paddingBottom={6} paddingHorizontal={16} justifyContent="space-between"
+						<HStack marginTop={16} paddingBottom={8} paddingHorizontal={16} justifyContent="space-between"
 						        alignItems="center">
-							<VarText type="xl">Featured</VarText>
-							<RightArrowIcon/>
+							<VarText type="xl" letterSpacing={1.25}>焦點</VarText>
+							<RightArrowIcon size={22}/>
 						</HStack>
 
 						<HStack>
@@ -82,9 +82,9 @@ const App = ({navigation}) => {
 							/>
 						</HStack>
 
-						<HStack paddingBottom={16} paddingHorizontal={16} justifyContent="space-between" alignItems="center">
-							<VarText type="xl">Best Seller</VarText>
-							<RightArrowIcon/>
+						<HStack paddingBottom={16} marginTop={8} paddingHorizontal={16} justifyContent="space-between" alignItems="center">
+							<VarText type="xl" letterSpacing={1.25}>暢銷書籍</VarText>
+							<RightArrowIcon size={22}/>
 						</HStack>
 					</>
 				}

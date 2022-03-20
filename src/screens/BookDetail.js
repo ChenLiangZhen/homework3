@@ -47,10 +47,10 @@ const BookDetail = ({ route, navigation }) => {
                  <RatingStarBar rating={props.rating}/>
 
                  <HStack marginTop={36} justifyContent="space-between" >
-                    <MainButton color="white" type="sm" text="Buy Now" width={155} backgroundColor="black" marginHorizontal={8}/>
+                    <MainButton color="white" type="mc" text="直接購買" letterSpacing={1} width={155} backgroundColor="black" marginHorizontal={8}/>
 
                     { wishlistState?
-                       <MainButton color="white" type="mc" text="remove from wishlist" width={155} backgroundColor="#ccc" marginHorizontal={8}
+                       <MainButton color="white" type="mc" text="從願望清單移除" width={155} backgroundColor="#ccc" marginHorizontal={8} borderWidth={1} borderColor="lightgray"
                            onPress={()=>{
                               let updatedBookData = state.currentBookData.map(book => {
                                  if(book.title === props.title){
@@ -64,7 +64,7 @@ const BookDetail = ({ route, navigation }) => {
                               console.log("[BookDetail.js] wishlist updated. BookData: " + JSON.stringify(updatedBookData))
                            }}
                        /> :
-                       <MainButton color="black" type="sm" text="Add to Wishlist" width={155} backgroundColor="transparent" borderWidth={1} borderColor="black"  marginHorizontal={8}
+                       <MainButton color="black" type="mc" text="加入願望清單" letterSpacing={1} width={155} backgroundColor="transparent" borderWidth={1} borderColor="black"  marginHorizontal={8}
                            onPress={()=>{
 
                               let updatedBookData = state.currentBookData.map(book => {

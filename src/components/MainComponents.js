@@ -54,7 +54,7 @@ export function BookItem (props){
 			</HStack>
 
 			<VStack paddingHorizontal={2} marginTop={4}>
-				<VarText type="sm" fontWeight="bold" marginTop={8}>{props.title}</VarText>
+				<VarText type="sm" fontWeight="bold" marginTop={8} color="#333">{props.title}</VarText>
 				<VarText type="mc" color="gray" marginTop={4}>{props.author}</VarText>
 				<RatingStarBar rating={props.rating}/>
 			</VStack>
@@ -64,6 +64,7 @@ export function BookItem (props){
 }
 
 export function BestsellerItem (props){
+
 	const [isLoading, setIsLoading] = useState(true)
 	const [state, dispatch] = useContext(StateContext)
 
@@ -77,12 +78,14 @@ export function BestsellerItem (props){
 		<Pressable style={{
 			height: "auto",
 			width: VW - 44,
-			borderRadius: 16,
+			borderRadius: 12,
 			marginLeft: 22,
 			marginBottom: 12,
 			flexDirection: "column",
 			backgroundColor: "#f6f6f6",
-			paddingVertical: 4
+			paddingVertical: 0,
+			borderWidth: 1,
+			borderColor: "#ccc"
 		}}
 			onPress={()=>{
 				props.navigation.navigate("BookDetail", {
@@ -91,31 +94,31 @@ export function BestsellerItem (props){
 			}}
 		>
 			<HStack>
-				<HStack marginRight={8} shadowOpacity={.5}  shadowRadius={6} shadowColor= "gray" shadowOffset={{ height: 1}}>
+				<HStack marginRight={8} shadowOpacity={.75}  shadowRadius={3} shadowColor= "gray" shadowOffset={{ height: 1}}>
 					{isLoading? <ActivityIndicator style={{ position: "relative", left: 30}} size="small" color="gray"/> : <></>}
 					<Image style={{ width: 60, height: 90, borderRadius: 10, }} source={{ uri: props.image }}
 					       onLoadEnd={()=>{setIsLoading(false)}}/>
 				</HStack>
 
-				<VStack borderRadius={12} paddingHorizontal={8} marginTop={4} width={270} backgroundColor="#f6f6f6">
+				<VStack borderRadius={12} paddingHorizontal={8} marginTop={4} width={300} backgroundColor="#f6f6f6">
 
 					<HStack marginTop={4} height={24} alignItems="center">
-						<HStack marginRight={8} borderRadius={4} backgroundColor="black" height={24} width={32} justifyContent="center" alignItems="center">
+						<HStack marginRight={8} borderRadius={4} backgroundColor="#444" height={24} width={32} justifyContent="center" alignItems="center">
 							<VarText type="md" fontWeight="bold" color="white">{"#" + props.ranking}</VarText>
 						</HStack>
-						<VarText type="sm" fontWeight="bold">{props.title}</VarText>
+						<VarText type="sm" fontWeight="bold" color="#333">{props.title}</VarText>
 					</HStack>
 
-					<HStack justifyContent="space-between" alignItems="center" marginTop={2}>
+					<HStack justifyContent="space-between" alignItems="center" marginTop={2} width="100%">
 
 						<VStack>
-							<VarText type="mc" color="gray" marginTop={4} >{props.author}</VarText>
+							<VarText type="nano" color="gray" marginTop={4} >{props.author}</VarText>
 							<RatingStarBar rating={props.rating} />
 						</VStack>
 
-						<HStack marginTop={20}>
+						<HStack marginTop={20} >
 							{wishlistState?
-								<BookmarkIconFill size={28} onPress={()=>{
+								<BookmarkIconFill size={26} color="#888" onPress={()=>{
 									let updatedBookData = state.currentBookData.map(book => {
 										if(book.title === props.title){
 											setWishlistState(false)
@@ -128,7 +131,7 @@ export function BestsellerItem (props){
 									console.log("[BookDetail.js] wishlist updated. BookData: " + JSON.stringify(updatedBookData))
 								}
 							}/>:
-								<BookmarkIconOutline size={28} onPress={()=>{
+								<BookmarkIconOutline size={26} color="#888" onPress={()=>{
 									let updatedBookData = state.currentBookData.map(book => {
 										if(book.title === props.title){
 											setWishlistState(true)
@@ -187,7 +190,7 @@ export function SearchBar({placeholder}){
 		<VStack>
 			<HStack width="100%" height={48} justifyContent="space-between" alignItems="center" paddingHorizontal={12} paddingBottom={4} marginBottom={0}
 			        backgroundColor="#ffffff" shadowOpacity={.2} shadowOffset={{height: 8}} shadowRadius={6} shadowColor="lightgray">
-				<UserIcon/>
+				<UserIcon size={30}/>
 				<TextInput onFocus={()=>{
 					setShowSearchSuggestion("dsvbshjfl")
 				}}
@@ -214,5 +217,53 @@ export function TopNav(props){
 			{/*<VarText type="md">Detail</VarText>*/}
 			{/*<View onPress={props.onPress}/>*/}
 		</HStack>
+	)
+}
+
+export function SettingItem({position, children, ...props}){
+
+	let styleObject = {}
+
+	switch(position){
+		case "top":
+			styleObject= {
+				borderTopColor: "#ddd",
+				borderTopRightRadius:16,
+				borderTopLeftRadius:16,
+				borderBottomWidth: 0}
+			break;
+		case "middle":
+			styleObject= { borderBottomWidth: 0}
+			break;
+
+		case "bottom":
+			styleObject= { borderBottomRightRadius:16,
+				borderBottomLeftRadius:16,
+				borderBottomColor: "#ddd",
+			marginBottom: 16}
+			break;
+
+	}
+
+
+
+	return(
+		<Pressable style={[{
+			height: 50,
+			width:"auto" ,
+			marginHorizontal:16,
+			padding:12,
+			paddingHorizontal: 16,
+			backgroundColor:"#f6f6f6",
+			flexDirection: "row",
+			borderWidth: 1,
+			borderColor: "#bbb",
+			borderLeftColor: "#ddd",
+			borderRightColor: "#ddd",
+			justifyContent: "space-between",
+			alignItems: "center"
+		}, styleObject, {...props}]}>
+			{children}
+		</Pressable>
 	)
 }

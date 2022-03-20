@@ -12,6 +12,21 @@ export function RatingStarBar({rating, ...props}) {
 	)
 }
 
+export function NumberBadge({number}){
+	return(
+		<View style={{
+			height: 12,
+			width: 12,
+			borderRadius: 100,
+			justifyContent: "center",
+			alignItems: "center",
+		}}>
+			<VarText type="nano">{number}</VarText>
+		</View>
+	)
+}
+
+
 export function RankBadge({rank}){
 	 return(
 <></>
@@ -19,3 +34,5 @@ export function RankBadge({rank}){
 }
 
 import {HStack} from "./BaseLayout";
+import {View} from "react-native";
+import {VarText} from "./TextLayout";

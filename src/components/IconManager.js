@@ -1,11 +1,19 @@
-import {AntDesign, Feather, FontAwesome, MaterialCommunityIcons, MaterialIcons, Octicons} from "@expo/vector-icons";
+import {
+	AntDesign,
+	Feather,
+	FontAwesome,
+	Ionicons,
+	MaterialCommunityIcons,
+	MaterialIcons,
+	Octicons
+} from "@expo/vector-icons";
 import {Pressable} from "react-native";
 import {useRoute} from "@react-navigation/native-stack"
 import {useContext} from "react";
 import {StateContext} from "../managers/State/GlobalStateManager";
 import {ACTIONS} from "../managers/State/ActionLibrary";
 
-export function RightArrowIcon({onPress}){
+export function RightArrowIcon({onPress, size}){
 	return(
 		<Pressable style={{
 			height: 32,
@@ -13,7 +21,7 @@ export function RightArrowIcon({onPress}){
 			justifyContent: "center",
 			alignItems: "center",
 		}}>
-			<MaterialIcons name="arrow-forward-ios" size={22} color="black"/>
+			<MaterialIcons name="arrow-forward-ios" size={size} color="black"/>
 
 		</Pressable>
 	)
@@ -22,8 +30,8 @@ export function RightArrowIcon({onPress}){
 export function LeftArrowIcon({onPress}){
 	return(
 		<Pressable style={{
-			height: 32,
-			width: 32,
+			height: 40,
+			width: 40,
 			justifyContent: "center",
 			alignItems: "center",
 		}} onPress={onPress}>
@@ -33,7 +41,7 @@ export function LeftArrowIcon({onPress}){
 	)
 }
 
-export function BookmarkIconOutline({onPress, size}){
+export function BookmarkIconOutline({onPress, size, color}){
 	const [state, dispatch] = useContext(StateContext)
 
 	return(
@@ -43,13 +51,13 @@ export function BookmarkIconOutline({onPress, size}){
 			justifyContent: "center",
 			alignItems: "center",
 		}} onPress={onPress}>
-			<FontAwesome name="bookmark-o" size={size} color="black"/>
+			<FontAwesome name="bookmark-o" size={size} color={color}/>
 
 		</Pressable>
 	)
 }
 
-export function BookmarkIconFill({onPress, size}){
+export function BookmarkIconFill({onPress, size, color}){
 	const [state, dispatch] = useContext(StateContext)
 
 	return(
@@ -59,7 +67,7 @@ export function BookmarkIconFill({onPress, size}){
 			justifyContent: "center",
 			alignItems: "center",
 		}} onPress={onPress}>
-			<FontAwesome name="bookmark" size={size} color="black"/>
+			<FontAwesome name="bookmark" size={size} color={color}/>
 
 		</Pressable>
 	)
@@ -79,11 +87,11 @@ export function RatingStar({isColored}){
 	)
 }
 
-export function UserIcon(){
+export function UserIcon({size, color}){
 	return(
 		<Pressable style={{
-			height: 32,
-			width: 32,
+			height: size + 8,
+			width: size + 8,
 			justifyContent: 'center',
 			alignItems: "center",
 			shadowColor: "lightgray",
@@ -91,7 +99,7 @@ export function UserIcon(){
 			shadowOffset: { height: 1}
 
 		}}>
-			<AntDesign name="user" size={24} color="black"/>
+			<Ionicons name="person-circle-outline" size={size} color={color}/>
 		</Pressable>
 	)
 }
